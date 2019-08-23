@@ -57,8 +57,8 @@ export FABRIC_VERSION=hlfv11
 ```
 ## Running Hyperledger Composer
 I recommend exporting `FABRIC_VERSION=hlfv11` globally, because if not the script would assume to use the newest version of hlfv and it would lead to some compatibility problems.</br>
-To do this, open your `/etc/environment` file with any editor and paste `FABRIC_VERSION=hlfv11` inside. Reboot.</br>
-The first time you start up a new runtime, you'll need to run the start script, then generate a PeerAdmin card:
+To do this, open your `/etc/environment` file with any editor and paste `FABRIC_VERSION=hlfv11` inside. Reboot.</br></br>
+The first time you start up a new Hyperledger runtime, you'll need to run the start script, then generate a PeerAdmin card:
 ```
 cd ~/fabric-dev-servers
 export FABRIC_VERSION=hlfv11
@@ -68,3 +68,5 @@ export FABRIC_VERSION=hlfv11
 You can start and stop your runtime using `~/fabric-dev-servers/stopFabric.sh`, and start it again with `~/fabric-dev-servers/startFabric.sh`.</br>
 
 At the end of your development session, run ~/fabric-dev-servers/stopFabric.sh and then ~/fabric-dev-servers/teardownFabric.sh. Note that if you've run the teardown script, the next time you start the runtime, you'll need to create a new PeerAdmin card just like you did on first time startup.
+## Creating business networks
+To create a new network, refer to https://hyperledger.github.io/composer/v0.19/tutorials/developer-tutorial.
