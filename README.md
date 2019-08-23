@@ -70,3 +70,38 @@ You can start and stop your runtime using `~/fabric-dev-servers/stopFabric.sh`, 
 At the end of your development session, run ~/fabric-dev-servers/stopFabric.sh and then ~/fabric-dev-servers/teardownFabric.sh. Note that if you've run the teardown script, the next time you start the runtime, you'll need to create a new PeerAdmin card just like you did on first time startup.
 ## Creating business networks
 To create a new business network, refer to <a href="https://hyperledger.github.io/composer/v0.19/tutorials/developer-tutorial" target="_blank">Hyperledger Developer Tutorial</a>.
+## Running the BanList project
+To run this repository's project, clone the progect using
+```
+git clone
+```
+Be sure to delete networkadmin.card and noflylist@0.0.6.bna.</br>
+Using the command line, navigate to the Hyperledger-BanList directory.</br>
+From the Hyperledger-BanList directory, run the following command:
+```
+composer archive create -t dir -n .
+```
+After the command has run, a business network archive file called Hyperledger-BanList@0.0.1.bna should have been created in the Hyperledger-BanList directory.</br>
+To install the business network, from the tutorial-network directory, run the following command:
+```
+composer network install --card PeerAdmin@hlfv1 --archiveFile Hyperledger-BanList@0.0.1.bna
+```
+The composer network install command requires a PeerAdmin business network card (in this case one has been created and imported in advance), and the the file path of the .bna which defines the business network.</br>
+
+To start the business network, run the following command:
+```
+composer network start --networkName Hyperledger-BanList --networkVersion 0.0.1 --networkAdmin admin --networkAdminEnrollSecret adminpw --card PeerAdmin@hlfv1 --file networkadmin.card
+```
+The composer network start command requires a business network card, as well as the name of the admin identity for the business network, the name and version of the business network and the name of the file to be created ready to import as a business network card.</br>
+
+To import the network administrator identity as a usable business network card, run the following command:
+```
+composer card import --file networkadmin.card
+```
+The composer card import command requires the filename specified in composer network start to create a card.</br>
+
+To check that the business network has been deployed successfully, run the following command to ping the network:
+```
+composer network ping --card admin@Hyperledger-BanList
+```
+The composer network ping command requires a business network card to identify the network to ping.
