@@ -14,3 +14,4 @@ Next run the script - as this briefly uses sudo during its execution, you will b
 ```
 ./prereqs-ubuntu.sh
 ```
+**BE SURE TO INSTALL THE FOLLOWING COMPONENTS WITH 8TH NODE VERSION (!)**
