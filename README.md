@@ -55,6 +55,9 @@ cd ~/fabric-dev-servers
 export FABRIC_VERSION=hlfv11
 ./downloadFabric.sh
 ```
+## Running Hyperledger Composer
+I recommend exporting `FABRIC_VERSION=hlfv11` globally, because if not the script would assume to use the newest version of hlfv and it would lead to some compatibility problems.</br>
+To do this, open your `/etc/environment` file with any editor and paste `FABRIC_VERSION=hlfv11` inside. Reboot.</br>
 The first time you start up a new runtime, you'll need to run the start script, then generate a PeerAdmin card:
 ```
 cd ~/fabric-dev-servers
