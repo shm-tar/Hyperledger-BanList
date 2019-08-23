@@ -73,7 +73,7 @@ To create a new business network, refer to <a href="https://hyperledger.github.i
 ## Running the BanList project
 To run this repository's project, clone the progect using
 ```
-git clone
+git clone https://github.com/shm-tar/Hyperledger-BanList
 ```
 Be sure to delete networkadmin.card and noflylist@0.0.6.bna.</br>
 Using the command line, navigate to the Hyperledger-BanList directory.</br>
