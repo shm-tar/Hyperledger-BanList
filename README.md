@@ -69,4 +69,4 @@ You can start and stop your runtime using `~/fabric-dev-servers/stopFabric.sh`, 
 
 At the end of your development session, run ~/fabric-dev-servers/stopFabric.sh and then ~/fabric-dev-servers/teardownFabric.sh. Note that if you've run the teardown script, the next time you start the runtime, you'll need to create a new PeerAdmin card just like you did on first time startup.
 ## Creating business networks
-To create a new network, refer to https://hyperledger.github.io/composer/v0.19/tutorials/developer-tutorial.
+To create a new network, refer to <a href="https://hyperledger.github.io/composer/v0.19/tutorials/developer-tutorial" target="_blank">Hyperledger Developer Tutorial</a>.
