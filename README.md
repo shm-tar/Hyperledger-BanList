@@ -124,7 +124,7 @@ composer network install --card PeerAdmin@hlfv1 --archiveFile Hyperledger-BanLis
 ```
 Run the following command to upgrade the network to the new version:
 ```
-composer network upgrade -c PeerAdmin@hlfv1 -n tutorial-network -V 0.0.2
+composer network upgrade -c PeerAdmin@hlfv1 -n Hyperledger-BanList -V 0.0.2
 ```
 Check the current version of the business network before continuing by using the following command:
 ```
