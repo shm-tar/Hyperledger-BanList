@@ -19,7 +19,7 @@ Set the node version globally
 ```
 nvm alias default v8
 ```
-Note that you should not use su or sudo for the following npm commands.</br>
+**Note that you should not use su or sudo for the following npm commands.**</br>
 Essential CLI tools:
 ```
 npm install -g composer-cli@0.19
