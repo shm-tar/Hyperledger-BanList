@@ -71,11 +71,12 @@ At the end of your development session, run ~/fabric-dev-servers/stopFabric.sh a
 ## Creating business networks
 To create a new business network, refer to <a href="https://hyperledger.github.io/composer/v0.19/tutorials/developer-tutorial" target="_blank">Hyperledger Developer Tutorial</a>.
 ## Running the BanList project
-To run this repository's project, clone the progect using
+To run the repository's project, clone the progect using
 ```
 git clone https://github.com/shm-tar/Hyperledger-BanList
 ```
 Be sure to delete networkadmin.card and noflylist@0.0.6.bna.</br>
+### Installing business network
 Using the command line, navigate to the Hyperledger-BanList directory.</br>
 From the Hyperledger-BanList directory, run the following command:
 ```
@@ -92,16 +93,21 @@ To start the business network, run the following command:
 ```
 composer network start --networkName Hyperledger-BanList --networkVersion 0.0.1 --networkAdmin admin --networkAdminEnrollSecret adminpw --card PeerAdmin@hlfv1 --file networkadmin.card
 ```
-The composer network start command requires a business network card, as well as the name of the admin identity for the business network, the name and version of the business network and the name of the file to be created ready to import as a business network card.</br>
+The `composer network start` command requires a business network card, as well as the name of the admin identity for the business network, the name and version of the business network and the name of the file to be created ready to import as a business network card.</br>
 
 To import the network administrator identity as a usable business network card, run the following command:
 ```
 composer card import --file networkadmin.card
 ```
-The composer card import command requires the filename specified in composer network start to create a card.</br>
+The `composer card import` command requires the filename specified in composer network start to create a card.</br>
 
 To check that the business network has been deployed successfully, run the following command to ping the network:
 ```
 composer network ping --card admin@Hyperledger-BanList
 ```
-The composer network ping command requires a business network card to identify the network to ping.
+### Running REST server
+The `composer network ping` command requires a business network card to identify the network to ping.</br>
+To create the REST API, navigate to the Hyperledger-BanList directory and run the following command:
+```
+composer-rest-server -c admin@Hyperledger-BanList -n never -u true -w true
+```
