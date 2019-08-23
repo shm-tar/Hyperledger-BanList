@@ -1,4 +1,9 @@
 # Hyperledger-BanList
+
+A simple business network built with:
+* Hyperledger Fabric
+* Hyperledger Composer
+* Yeoman
 ## Setup
 If you're running on Ubuntu, you can download the prerequisites using the following commands:
 ```
