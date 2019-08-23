@@ -1,5 +1,5 @@
 # Hyperledger-BanList
-<img src="https://github.com/shm-tar/Hyperledger-BanList/blob/master/arch.png?raw=true">
+<img src="https://github.com/shm-tar/Hyperledger-BanList/blob/master/arch.png?raw=true"></br>
 A simple business network built with:
 * Hyperledger Fabric
 * Hyperledger Composer
