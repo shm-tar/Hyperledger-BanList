@@ -111,3 +111,27 @@ To create the REST API, navigate to the Hyperledger-BanList directory and run th
 ```
 composer-rest-server -c admin@Hyperledger-BanList -n never -u true -w true
 ```
+Navigate to your web browser (localhost:3000/explorer).
+### Installing new version of business network after you made any changes to files inside directory
+In the Hyperledger-BanList directory, open the `package.json` file. Update the version property from 0.0.1 to 0.0.2. Using the command line, navigate to the tutorial-network directory.</br>
+Run the following command:
+```
+composer archive create --sourceType dir --sourceName . -a Hyperledger-BanList@0.0.2.bna
+```
+Switch to the terminal, change directory to the folder containing the Hyperledger-BanList@0.0.2.bna. Run the following command to install the updated business network:
+```
+composer network install --card PeerAdmin@hlfv1 --archiveFile Hyperledger-BanList@0.0.2.bna
+```
+Run the following command to upgrade the network to the new version:
+```
+composer network upgrade -c PeerAdmin@hlfv1 -n tutorial-network -V 0.0.2
+```
+Check the current version of the business network before continuing by using the following command:
+```
+composer network ping -c admin@Hyperledger-BanList | grep Business
+```
+Run composer REST server:
+```
+composer-rest-server -c admin@Hyperledger-BanList -n never -u true -w true
+```
+Navigate to your web browser (localhost:3000/explorer).
