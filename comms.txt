@@ -1,0 +1,32 @@
+creating new version:
+
+composer archive create --sourceType dir --sourceName . -a noflylist@0.0.14.bna
+
+composer network install --card PeerAdmin@hlfv1 --archiveFile noflylist@0.0.14.bna
+
+composer network upgrade -c PeerAdmin@hlfv1 -n noflylist -V 0.0.14
+
+composer network ping -c admin@noflylist | grep Business
+
+composer-rest-server -c admin@noflylist -n never -u true -w true
+
+{
+  "$class": "org.example.mynetwork.BannedPerson",
+  "bannedPersonId": "john_doe_FH004323",
+  "airlineThatBanned": "resource:org.example.mynetwork.Airline#wizz_air",
+  "passportId": "FH004323",
+  "firstName": "John",
+  "lastName": "Doe",
+  "nationality": "UK",
+  "address": "123 Baker",
+  "banDatetime": "26.08.2019",
+  "ban": "VIOLENCE",
+  "banDuration": "lifetime",
+  "description": "John was violent on-board."
+}
+
+{
+  "$class": "org.example.mynetwork.RegisterBannedPerson",
+  "airlineThatBanned": "resource:org.example.mynetwork.Airline#wizz_air",
+  "description": "TEST DESCR."
+}
