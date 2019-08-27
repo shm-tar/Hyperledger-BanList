@@ -16,7 +16,7 @@
  * Sample access control list.
  */
 /**
- * Access control rules for tutorial-network
+ * Access control rules
  */
 rule Default {
     description: "Allow all participants access to all resources"
