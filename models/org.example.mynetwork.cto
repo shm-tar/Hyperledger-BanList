@@ -39,11 +39,11 @@ asset BannedPerson identified by bannedPersonId {
   o String address
   o String banDatetime
   o Bans ban
-  o String description
   o String banDuration
+  o String description
 }
 
 transaction RegisterBannedPerson { 
-  --> BannedPerson bannedPerson
   --> Airline airlineThatBanned
+  o String description
 }
