@@ -46,4 +46,12 @@ asset BannedPerson identified by bannedPersonId {
 transaction RegisterBannedPerson { 
   --> Airline airlineThatBanned
   o String description
+  o String passportId
+  o String firstName
+  o String lastName
+  o String nationality
+  o String address
+  o String banDatetime
+  o Bans ban
+  o String banDuration
 }
