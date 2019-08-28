@@ -3,7 +3,7 @@
     "composer": "^0.19.20"
   },
   "name": "noflylist",
-  "version": "0.0.14",
+  "version": "0.0.20",
   "description": "none",
   "scripts": {
     "prepublish": "mkdirp ./dist && composer archive create --sourceType dir --sourceName . -a ./dist/noflylist.bna",
