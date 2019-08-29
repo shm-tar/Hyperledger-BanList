@@ -32,3 +32,146 @@ composer-rest-server -c admin@noflylist -n never -u true -w true
   "airlineThatBanned": "resource:org.example.mynetwork.Airline#wizz_air",
   "description": "TEST DESCR."
 }
+
+# NoFlyList
+<img src="http://code.gdndev.jeppesen.com/taras.shmilyk/noflylist/raw/master/arch.png"><br>
+A simple business network built with:
+* Hyperledger Fabric
+* Hyperledger Composer
+* Yeoman
+
+## Setup
+If some commands are not working for you or you find the tutorial not complete, refer to [Installing Hyperledger Composer Development Environment](https://hyperledger.github.io/composer/v0.19/installing/installing-index).<br>
+If you're running on Ubuntu, you can download the prerequisites using the following commands:
+```
+curl -O https://hyperledger.github.io/composer/v0.19/prereqs-ubuntu.sh
+chmod u+x prereqs-ubuntu.sh
+```
+Next run the script - as this briefly uses sudo during its execution, you will be prompted for your password.
+```
+./prereqs-ubuntu.sh
+```
+**(!) BE SURE TO INSTALL THE FOLLOWING COMPONENTS WITH 8TH NODE VERSION (!):**<br>
+Set the node version globally
+```
+nvm alias default v8
+```
+Note that you should not use su or sudo for the following npm commands.<br>
+Essential CLI tools:
+```
+npm install -g composer-cli@0.19
+```
+Utility for running a REST Server on your machine to expose your business networks as RESTful APIs:
+```
+npm install -g composer-rest-server@0.19
+```
+Useful utility for generating application assets:
+```
+npm install -g generator-hyperledger-composer@0.19
+```
+Yeoman is a tool for generating applications, which utilises generator-hyperledger-composer:
+```
+npm install -g yo
+```
+Install composer playground, browser app for simple editing and testing Business Networks:
+```
+npm install -g composer-playground@0.19
+```
+In a directory of your choice, get the .tar.gz file that contains the tools to install Hyperledger Fabric:
+```
+mkdir ~/fabric-dev-servers && cd ~/fabric-dev-servers
+
+curl -O https://raw.githubusercontent.com/hyperledger/composer-tools/master/packages/fabric-dev-servers/fabric-dev-servers.tar.gz
+tar -xvf fabric-dev-servers.tar.gz
+```
+A zip is also available if you prefer: just replace the .tar.gz file with fabric-dev-servers.zip and the tar -xvf command with a unzip command in the preceding snippet.<br>
+
+Use the scripts you just downloaded and extracted to download a local Hyperledger Fabric v1.1 runtime:
+```
+cd ~/fabric-dev-servers
+export FABRIC_VERSION=hlfv11
+./downloadFabric.sh
+```
+## Running Hyperledger Composer
+You will need at least 2 terminal windows, 1 for HL Composer scripts to start the blockchain, another for HL Composer REST Server.<br>
+I recommend exporting `FABRIC_VERSION=hlfv11` globally, because if not the script would assume to use the newest version of hlfv and it would lead to some compatibility problems.<br>
+To do this, open your `/etc/environment` file with any editor and paste `FABRIC_VERSION=hlfv11` inside. Reboot. [Tutorial Here](https://stackoverflow.com/questions/13046624/how-to-permanently-export-a-variable-in-linux).
+The first time you start up a new Hyperledger runtime, you'll need to run the start script, then generate a PeerAdmin card:
+```
+cd ~/fabric-dev-servers
+export FABRIC_VERSION=hlfv11
+./startFabric.sh
+./createPeerAdminCard.sh
+```
+You can start and stop your runtime using `~/fabric-dev-servers/stopFabric.sh`, and start it again with `~/fabric-dev-servers/startFabric.sh`.<br>
+
+At the end of your development session, run ~/fabric-dev-servers/stopFabric.sh and then ~/fabric-dev-servers/teardownFabric.sh. **THIS WILL DELETE ALL OF THE PARTICIPANT AND ASSET INFO INSIDE BLOCKCHAIN!** Note that if you've run the teardown script, the next time you start the runtime, you'll need to create a new PeerAdmin card just like you did on first time startup.
+## Creating business networks
+To create a new business network, refer to <a href="https://hyperledger.github.io/composer/v0.19/tutorials/developer-tutorial" target="_blank">Hyperledger Developer Tutorial</a>.
+## Running the NoFlyList project
+First, clone or download the project to your local machine<br>
+Inside `package.json`, change the `"version"` under the `"name"` to `0.0.1` and then follow _Installing business network_ section below.
+### Installing business network
+Using the command line, navigate to the `noflylist` directory.<br>
+From the `noflylist` directory, run the following command:
+```
+composer archive create -t dir -n .
+```
+After the command has run, a business network archive file called `noflylist@0.0.1.bna` should have been created in the `noflylist` directory.<br>
+To install the business network, from the `noflylist` directory, run the following command:
+```
+composer network install --card PeerAdmin@hlfv1 --archiveFile noflylist@0.0.1.bna
+```
+The composer network install command requires a PeerAdmin business network card (in this case one has been created and imported in advance), and the the file path of the .bna which defines the business network.<br>
+
+To start the business network, run the following command:
+```
+composer network start --networkName noflylist --networkVersion 0.0.1 --networkAdmin admin --networkAdminEnrollSecret adminpw --card PeerAdmin@hlfv1 --file networkadmin.card
+```
+The `composer network start` command requires a business network card, as well as the name of the admin identity for the business network, the name and version of the business network and the name of the file to be created ready to import as a business network card.<br>
+
+To import the network administrator identity as a usable business network card, run the following command:
+```
+composer card import --file networkadmin.card
+```
+The `composer card import` command requires the filename specified in composer network start to create a card.<br>
+
+To check that the business network has been deployed successfully, run the following command to ping the network:
+```
+composer network ping --card admin@noflylist
+```
+### Running REST server
+The `composer network ping` command requires a business network card to identify the network to ping.<br>
+To create the REST API, navigate to the noflylist directory and run the following command:
+```
+composer-rest-server -c admin@noflylist -n never -u true -w true
+```
+Navigate to your web browser (localhost:3000/explorer).
+### Installing new version of business network after you made any changes to files inside directory
+In the noflylist directory, open the `package.json` file. Update the version property from 0.0.1 to 0.0.2. Using the command line, navigate to the tutorial-network directory.</br>
+Run the following command:
+```
+composer archive create --sourceType dir --sourceName . -a noflylist@0.0.2.bna
+```
+Switch to the terminal, change directory to the folder containing the noflylist@0.0.2.bna. Run the following command to install the updated business network:
+```
+composer network install --card PeerAdmin@hlfv1 --archiveFile noflylist@0.0.2.bna
+```
+Run the following command to upgrade the network to the new version:
+```
+composer network upgrade -c PeerAdmin@hlfv1 -n noflylist -V 0.0.2
+```
+Check the current version of the business network before continuing by using the following command:
+```
+composer network ping -c admin@noflylist | grep Business
+```
+Run composer REST server:
+```
+composer-rest-server -c admin@noflylist -n never -u true -w true
+```
+Navigate to your web browser (localhost:3000/explorer).<br>
+From here you could add Airline participants, BannedPerson assets & create a RegisterBannedPerson transaction to pass the info to blockchain.
+## Validation Nodes
+I've tried to research the possibility of adding nodes that validate the info after other nodes submit RegisterBannedPerson. 
+[Deploying a Hyperledger Composer blockchain business network to Hyperledger Fabric for a single organization](https://hyperledger.github.io/composer/v0.19/tutorials/deploy-to-fabric-single-org)
+could be of potential value to implement this in future. 
